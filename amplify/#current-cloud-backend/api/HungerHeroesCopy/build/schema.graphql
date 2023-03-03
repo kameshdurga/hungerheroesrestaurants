@@ -1,0 +1,568 @@
+
+type Restaurants @aws_iam @aws_api_key {
+  id: ID!
+  Name: String
+  Address: String
+  Address2: String
+  City: String
+  State: String
+  Zipcode: Int
+  Contact1: String
+  Contact2: String
+  Phone1: AWSPhone
+  Phone2: AWSPhone
+  Email: AWSEmail
+  RestaurantID: ID
+  Web: String
+  Menu: String
+  imagekey: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Users @aws_iam @aws_api_key {
+  id: ID!
+  Email: AWSEmail
+  UserStatus: String
+  Phone: AWSPhone
+  NotificationStatus: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type RestaurantUser @aws_iam @aws_api_key {
+  id: ID!
+  Email: AWSEmail
+  UserStatus: String
+  Phone: AWSPhone
+  RestaurantsID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type OrderItem @aws_iam @aws_api_key {
+  id: ID!
+  LineItemId: ID!
+  ShopId: ID
+  ItemSKU: String
+  RecipientID: AWSPhone
+  Status: String
+  UpdatedTime: AWSTimestamp
+  CreatedAt: AWSTimestamp
+  usersID: ID!
+  statusTime: AWSTimestamp
+  ShardID: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelRestaurantsConnection @aws_api_key @aws_iam {
+  items: [Restaurants]!
+  nextToken: String
+}
+
+input ModelRestaurantsFilterInput {
+  id: ModelIDInput
+  Name: ModelStringInput
+  Address: ModelStringInput
+  Address2: ModelStringInput
+  City: ModelStringInput
+  State: ModelStringInput
+  Zipcode: ModelIntInput
+  Contact1: ModelStringInput
+  Contact2: ModelStringInput
+  Phone1: ModelStringInput
+  Phone2: ModelStringInput
+  Email: ModelStringInput
+  RestaurantID: ModelIDInput
+  Web: ModelStringInput
+  Menu: ModelStringInput
+  imagekey: ModelStringInput
+  and: [ModelRestaurantsFilterInput]
+  or: [ModelRestaurantsFilterInput]
+  not: ModelRestaurantsFilterInput
+}
+
+type Query {
+  getRestaurants(id: ID!): Restaurants @aws_api_key @aws_iam
+  listRestaurants(filter: ModelRestaurantsFilterInput, limit: Int, nextToken: String): ModelRestaurantsConnection @aws_api_key @aws_iam
+  getUsers(id: ID!): Users @aws_api_key @aws_iam
+  listUsers(filter: ModelUsersFilterInput, limit: Int, nextToken: String): ModelUsersConnection @aws_api_key @aws_iam
+  getRestaurantUser(id: ID!): RestaurantUser @aws_api_key @aws_iam
+  listRestaurantUsers(filter: ModelRestaurantUserFilterInput, limit: Int, nextToken: String): ModelRestaurantUserConnection @aws_api_key @aws_iam
+  getOrderItem(id: ID!, LineItemId: ID!): OrderItem @aws_api_key @aws_iam
+  listOrderItems(id: ID, LineItemId: ModelIDKeyConditionInput, filter: ModelOrderItemFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelOrderItemConnection @aws_api_key @aws_iam
+}
+
+input ModelRestaurantsConditionInput {
+  Name: ModelStringInput
+  Address: ModelStringInput
+  Address2: ModelStringInput
+  City: ModelStringInput
+  State: ModelStringInput
+  Zipcode: ModelIntInput
+  Contact1: ModelStringInput
+  Contact2: ModelStringInput
+  Phone1: ModelStringInput
+  Phone2: ModelStringInput
+  Email: ModelStringInput
+  RestaurantID: ModelIDInput
+  Web: ModelStringInput
+  Menu: ModelStringInput
+  imagekey: ModelStringInput
+  and: [ModelRestaurantsConditionInput]
+  or: [ModelRestaurantsConditionInput]
+  not: ModelRestaurantsConditionInput
+}
+
+input CreateRestaurantsInput {
+  id: ID
+  Name: String
+  Address: String
+  Address2: String
+  City: String
+  State: String
+  Zipcode: Int
+  Contact1: String
+  Contact2: String
+  Phone1: AWSPhone
+  Phone2: AWSPhone
+  Email: AWSEmail
+  RestaurantID: ID
+  Web: String
+  Menu: String
+  imagekey: String
+}
+
+input UpdateRestaurantsInput {
+  id: ID!
+  Name: String
+  Address: String
+  Address2: String
+  City: String
+  State: String
+  Zipcode: Int
+  Contact1: String
+  Contact2: String
+  Phone1: AWSPhone
+  Phone2: AWSPhone
+  Email: AWSEmail
+  RestaurantID: ID
+  Web: String
+  Menu: String
+  imagekey: String
+}
+
+input DeleteRestaurantsInput {
+  id: ID!
+}
+
+type Mutation {
+  createRestaurants(input: CreateRestaurantsInput!, condition: ModelRestaurantsConditionInput): Restaurants @aws_api_key @aws_iam
+  updateRestaurants(input: UpdateRestaurantsInput!, condition: ModelRestaurantsConditionInput): Restaurants @aws_api_key @aws_iam
+  deleteRestaurants(input: DeleteRestaurantsInput!, condition: ModelRestaurantsConditionInput): Restaurants @aws_api_key @aws_iam
+  createUsers(input: CreateUsersInput!, condition: ModelUsersConditionInput): Users @aws_api_key @aws_iam
+  updateUsers(input: UpdateUsersInput!, condition: ModelUsersConditionInput): Users @aws_api_key @aws_iam
+  deleteUsers(input: DeleteUsersInput!, condition: ModelUsersConditionInput): Users @aws_api_key @aws_iam
+  createRestaurantUser(input: CreateRestaurantUserInput!, condition: ModelRestaurantUserConditionInput): RestaurantUser @aws_api_key @aws_iam
+  updateRestaurantUser(input: UpdateRestaurantUserInput!, condition: ModelRestaurantUserConditionInput): RestaurantUser @aws_api_key @aws_iam
+  deleteRestaurantUser(input: DeleteRestaurantUserInput!, condition: ModelRestaurantUserConditionInput): RestaurantUser @aws_api_key @aws_iam
+  createOrderItem(input: CreateOrderItemInput!, condition: ModelOrderItemConditionInput): OrderItem @aws_api_key @aws_iam
+  updateOrderItem(input: UpdateOrderItemInput!, condition: ModelOrderItemConditionInput): OrderItem @aws_api_key @aws_iam
+  deleteOrderItem(input: DeleteOrderItemInput!, condition: ModelOrderItemConditionInput): OrderItem @aws_api_key @aws_iam
+}
+
+input ModelSubscriptionRestaurantsFilterInput {
+  id: ModelSubscriptionIDInput
+  Name: ModelSubscriptionStringInput
+  Address: ModelSubscriptionStringInput
+  Address2: ModelSubscriptionStringInput
+  City: ModelSubscriptionStringInput
+  State: ModelSubscriptionStringInput
+  Zipcode: ModelSubscriptionIntInput
+  Contact1: ModelSubscriptionStringInput
+  Contact2: ModelSubscriptionStringInput
+  Phone1: ModelSubscriptionStringInput
+  Phone2: ModelSubscriptionStringInput
+  Email: ModelSubscriptionStringInput
+  RestaurantID: ModelSubscriptionIDInput
+  Web: ModelSubscriptionStringInput
+  Menu: ModelSubscriptionStringInput
+  imagekey: ModelSubscriptionStringInput
+  and: [ModelSubscriptionRestaurantsFilterInput]
+  or: [ModelSubscriptionRestaurantsFilterInput]
+}
+
+type Subscription {
+  onCreateRestaurants(filter: ModelSubscriptionRestaurantsFilterInput): Restaurants @aws_subscribe(mutations: ["createRestaurants"]) @aws_api_key @aws_iam
+  onUpdateRestaurants(filter: ModelSubscriptionRestaurantsFilterInput): Restaurants @aws_subscribe(mutations: ["updateRestaurants"]) @aws_api_key @aws_iam
+  onDeleteRestaurants(filter: ModelSubscriptionRestaurantsFilterInput): Restaurants @aws_subscribe(mutations: ["deleteRestaurants"]) @aws_api_key @aws_iam
+  onCreateUsers(filter: ModelSubscriptionUsersFilterInput): Users @aws_subscribe(mutations: ["createUsers"]) @aws_api_key @aws_iam
+  onUpdateUsers(filter: ModelSubscriptionUsersFilterInput): Users @aws_subscribe(mutations: ["updateUsers"]) @aws_api_key @aws_iam
+  onDeleteUsers(filter: ModelSubscriptionUsersFilterInput): Users @aws_subscribe(mutations: ["deleteUsers"]) @aws_api_key @aws_iam
+  onCreateRestaurantUser(filter: ModelSubscriptionRestaurantUserFilterInput): RestaurantUser @aws_subscribe(mutations: ["createRestaurantUser"]) @aws_api_key @aws_iam
+  onUpdateRestaurantUser(filter: ModelSubscriptionRestaurantUserFilterInput): RestaurantUser @aws_subscribe(mutations: ["updateRestaurantUser"]) @aws_api_key @aws_iam
+  onDeleteRestaurantUser(filter: ModelSubscriptionRestaurantUserFilterInput): RestaurantUser @aws_subscribe(mutations: ["deleteRestaurantUser"]) @aws_api_key @aws_iam
+  onCreateOrderItem(filter: ModelSubscriptionOrderItemFilterInput): OrderItem @aws_subscribe(mutations: ["createOrderItem"]) @aws_api_key @aws_iam
+  onUpdateOrderItem(filter: ModelSubscriptionOrderItemFilterInput): OrderItem @aws_subscribe(mutations: ["updateOrderItem"]) @aws_api_key @aws_iam
+  onDeleteOrderItem(filter: ModelSubscriptionOrderItemFilterInput): OrderItem @aws_subscribe(mutations: ["deleteOrderItem"]) @aws_api_key @aws_iam
+}
+
+type ModelUsersConnection @aws_api_key @aws_iam {
+  items: [Users]!
+  nextToken: String
+}
+
+input ModelUsersFilterInput {
+  id: ModelIDInput
+  Email: ModelStringInput
+  UserStatus: ModelStringInput
+  Phone: ModelStringInput
+  NotificationStatus: ModelStringInput
+  and: [ModelUsersFilterInput]
+  or: [ModelUsersFilterInput]
+  not: ModelUsersFilterInput
+}
+
+input ModelUsersConditionInput {
+  Email: ModelStringInput
+  UserStatus: ModelStringInput
+  Phone: ModelStringInput
+  NotificationStatus: ModelStringInput
+  and: [ModelUsersConditionInput]
+  or: [ModelUsersConditionInput]
+  not: ModelUsersConditionInput
+}
+
+input CreateUsersInput {
+  id: ID
+  Email: AWSEmail
+  UserStatus: String
+  Phone: AWSPhone
+  NotificationStatus: String
+}
+
+input UpdateUsersInput {
+  id: ID!
+  Email: AWSEmail
+  UserStatus: String
+  Phone: AWSPhone
+  NotificationStatus: String
+}
+
+input DeleteUsersInput {
+  id: ID!
+}
+
+input ModelSubscriptionUsersFilterInput {
+  id: ModelSubscriptionIDInput
+  Email: ModelSubscriptionStringInput
+  UserStatus: ModelSubscriptionStringInput
+  Phone: ModelSubscriptionStringInput
+  NotificationStatus: ModelSubscriptionStringInput
+  and: [ModelSubscriptionUsersFilterInput]
+  or: [ModelSubscriptionUsersFilterInput]
+}
+
+type ModelRestaurantUserConnection @aws_api_key @aws_iam {
+  items: [RestaurantUser]!
+  nextToken: String
+}
+
+input ModelRestaurantUserFilterInput {
+  id: ModelIDInput
+  Email: ModelStringInput
+  UserStatus: ModelStringInput
+  Phone: ModelStringInput
+  RestaurantsID: ModelIDInput
+  and: [ModelRestaurantUserFilterInput]
+  or: [ModelRestaurantUserFilterInput]
+  not: ModelRestaurantUserFilterInput
+}
+
+input ModelRestaurantUserConditionInput {
+  Email: ModelStringInput
+  UserStatus: ModelStringInput
+  Phone: ModelStringInput
+  RestaurantsID: ModelIDInput
+  and: [ModelRestaurantUserConditionInput]
+  or: [ModelRestaurantUserConditionInput]
+  not: ModelRestaurantUserConditionInput
+}
+
+input CreateRestaurantUserInput {
+  id: ID
+  Email: AWSEmail
+  UserStatus: String
+  Phone: AWSPhone
+  RestaurantsID: ID
+}
+
+input UpdateRestaurantUserInput {
+  id: ID!
+  Email: AWSEmail
+  UserStatus: String
+  Phone: AWSPhone
+  RestaurantsID: ID
+}
+
+input DeleteRestaurantUserInput {
+  id: ID!
+}
+
+input ModelSubscriptionRestaurantUserFilterInput {
+  id: ModelSubscriptionIDInput
+  Email: ModelSubscriptionStringInput
+  UserStatus: ModelSubscriptionStringInput
+  Phone: ModelSubscriptionStringInput
+  RestaurantsID: ModelSubscriptionIDInput
+  and: [ModelSubscriptionRestaurantUserFilterInput]
+  or: [ModelSubscriptionRestaurantUserFilterInput]
+}
+
+type ModelOrderItemConnection @aws_api_key @aws_iam {
+  items: [OrderItem]!
+  nextToken: String
+}
+
+input ModelOrderItemFilterInput {
+  id: ModelIDInput
+  LineItemId: ModelIDInput
+  ShopId: ModelIDInput
+  ItemSKU: ModelStringInput
+  RecipientID: ModelStringInput
+  Status: ModelStringInput
+  UpdatedTime: ModelIntInput
+  CreatedAt: ModelIntInput
+  usersID: ModelIDInput
+  statusTime: ModelIntInput
+  ShardID: ModelStringInput
+  and: [ModelOrderItemFilterInput]
+  or: [ModelOrderItemFilterInput]
+  not: ModelOrderItemFilterInput
+}
+
+input ModelOrderItemConditionInput {
+  ShopId: ModelIDInput
+  ItemSKU: ModelStringInput
+  RecipientID: ModelStringInput
+  Status: ModelStringInput
+  UpdatedTime: ModelIntInput
+  CreatedAt: ModelIntInput
+  usersID: ModelIDInput
+  statusTime: ModelIntInput
+  ShardID: ModelStringInput
+  and: [ModelOrderItemConditionInput]
+  or: [ModelOrderItemConditionInput]
+  not: ModelOrderItemConditionInput
+}
+
+input CreateOrderItemInput {
+  id: ID
+  LineItemId: ID!
+  ShopId: ID
+  ItemSKU: String
+  RecipientID: AWSPhone
+  Status: String
+  UpdatedTime: AWSTimestamp
+  CreatedAt: AWSTimestamp
+  usersID: ID!
+  statusTime: AWSTimestamp
+  ShardID: String
+}
+
+input UpdateOrderItemInput {
+  id: ID!
+  LineItemId: ID!
+  ShopId: ID
+  ItemSKU: String
+  RecipientID: AWSPhone
+  Status: String
+  UpdatedTime: AWSTimestamp
+  CreatedAt: AWSTimestamp
+  usersID: ID
+  statusTime: AWSTimestamp
+  ShardID: String
+}
+
+input DeleteOrderItemInput {
+  id: ID!
+  LineItemId: ID!
+}
+
+input ModelSubscriptionOrderItemFilterInput {
+  id: ModelSubscriptionIDInput
+  LineItemId: ModelSubscriptionIDInput
+  ShopId: ModelSubscriptionIDInput
+  ItemSKU: ModelSubscriptionStringInput
+  RecipientID: ModelSubscriptionStringInput
+  Status: ModelSubscriptionStringInput
+  UpdatedTime: ModelSubscriptionIntInput
+  CreatedAt: ModelSubscriptionIntInput
+  usersID: ModelSubscriptionIDInput
+  statusTime: ModelSubscriptionIntInput
+  ShardID: ModelSubscriptionStringInput
+  and: [ModelSubscriptionOrderItemFilterInput]
+  or: [ModelSubscriptionOrderItemFilterInput]
+}
+
+input ModelIDKeyConditionInput {
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  between: [ID]
+  beginsWith: ID
+}
+

@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "HungerHeroesCopy",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-hungerheroescopy-dev-115856-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/dc4544c04582052b3462f12712cede5ebd4b5cc6"
+}

@@ -1,0 +1,137 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hungerheroescopy-dev-115856-authRole",
+      "UnauthRoleArn": "arn:aws:iam::754404958569:role/amplify-hungerheroescopy-dev-115856-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::754404958569:role/amplify-hungerheroescopy-dev-115856-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-hungerheroescopy-dev-115856-deployment",
+      "UnauthRoleName": "amplify-hungerheroescopy-dev-115856-unauthRole",
+      "StackName": "amplify-hungerheroescopy-dev-115856",
+      "StackId": "arn:aws:cloudformation:us-east-2:754404958569:stack/amplify-hungerheroescopy-dev-115856/9d9a1010-9690-11ed-b2ee-02ed45a39e88",
+      "AmplifyAppId": "d15c56y49hlsbn"
+    }
+  },
+  "api": {
+    "HungerHeroesCopy": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          }
+        },
+        "GraphQLAPIIdOutput": "wmeig5ehzfcvhdmooyjej2ftzy",
+        "GraphQLAPIEndpointOutput": "https://6735ufue2zekhke5yqvi32zmue.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-e4bzjze5urhwxe5dpjxm2x4wtq"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "lastPushTimeStamp": "2023-02-12T03:57:23.508Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-hungerheroescopy-dev-115856-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiHungerHeroesCopy"
+      },
+      "lastPushDirHash": "yM7CzVq7aOl0iQOySgbAiZRPLKk="
+    }
+  },
+  "auth": {
+    "HungerHeroesCopy": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "UserPoolId": "us-east-2_Yxr4bc1os",
+        "AppClientIDWeb": "500spbr0cil3sh6okh8gi19004",
+        "AppClientID": "771pbc1n0gnkutoh6jqsc6c7op",
+        "IdentityPoolId": "us-east-2:cd10889b-0ad9-45f4-bb85-12c888a9a04d",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-2:754404958569:userpool/us-east-2_Yxr4bc1os",
+        "IdentityPoolName": "hungerheroescopya2c0386a_identitypool_a2c0386a__dev",
+        "UserPoolName": "HungerHeroesCopy"
+      },
+      "lastPushTimeStamp": "2023-02-12T03:57:23.214Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-hungerheroescopy-dev-115856-deployment/amplify-cfn-templates/auth/HungerHeroesCopy-cloudformation-template.json",
+        "logicalId": "authHungerHeroesCopy"
+      },
+      "lastPushDirHash": "6jb2523zv7TisaOrWdP6WsqrYew="
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "HungerHeroesCopy",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups",
+      "output": {
+        "testpoolGroupRole": "arn:aws:iam::754404958569:role/us-east-2_Yxr4bc1os-testpoolGroupRole"
+      },
+      "lastPushTimeStamp": "2023-02-12T03:57:23.216Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-hungerheroescopy-dev-115856-deployment/amplify-cfn-templates/auth/userPoolGroups-cloudformation-template.json",
+        "logicalId": "authuserPoolGroups"
+      },
+      "lastPushDirHash": "cAlZZKwt8wvexGFdS6QiNhBC6Z4="
+    }
+  },
+  "storage": {
+    "s31b1d5ab3": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3",
+      "output": {
+        "BucketName": "hungerheroescopy8af78c17230a404fb45b775a463cc24115856-dev",
+        "Region": "us-east-2"
+      },
+      "lastPushTimeStamp": "2023-02-12T03:57:23.217Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-hungerheroescopy-dev-115856-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages31b1d5ab3"
+      }
+    }
+  },
+  "function": {
+    "hungerheroesclaimeronbaord": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
+  }
+}

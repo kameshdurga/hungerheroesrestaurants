@@ -1,0 +1,63 @@
+type Restaurants @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Name: String
+  Address: String
+  Address2: String
+  City: String
+  State: String
+  Zipcode: Int
+  Contact1: String
+  Contact2: String
+  Phone1: AWSPhone
+  Phone2: AWSPhone
+  Email: AWSEmail
+  RestaurantID: ID
+  Web: String
+  Menu: String
+  imagekey: String
+}
+
+type Users @model @auth(rules: [{allow: public}]) {
+  id: ID! @index(name: "UsersIndex", sortKeyFields: ["zipcode", "timestamp"])
+  Email: AWSEmail
+  UserStatus: String @index(name: "UserStatus-index")
+  Phone: AWSPhone
+  NotificationStatus: String
+  zipcode: String!
+  timestamp: AWSDateTime
+}
+
+
+type RestaurantUser @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Email: AWSEmail  @index(name: "byEmail")
+  UserStatus: String
+  Phone: AWSPhone
+  RestaurantsID: ID @index(name: "byRestaurant")
+}
+
+type DonorUser @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Email: AWSEmail  @index(name: "byEmail")
+  UserStatus: String
+  Phone: AWSPhone
+  RestaurantsID: ID @index(name: "byRestaurant")
+}
+
+
+ type OrderItem @model @auth(rules: [{allow: public}]) {
+  id: ID! @primaryKey
+    (sortKeyFields: ["LineItemId"])
+  LineItemId: ID!
+  ShopId: ID
+  ItemSKU: String
+  RecipientID: AWSPhone
+  Status: String @index(name: "Status-index")
+  UpdatedTime: AWSTimestamp
+  CreatedAt: AWSTimestamp
+  DonorUserID: ID! @index(name: "byDonorUser")
+  statusTime: AWSTimestamp
+  ShardID: String
+  RestaurantsID: ID! @index(name: "byRestaurant")
+  zipcode: String!
+  }
